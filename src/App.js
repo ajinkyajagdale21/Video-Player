@@ -1,21 +1,18 @@
 import './App.css';
-import {useData} from './Contexts/dataContext'
+import {Routes,Route} from 'react-router-dom';
+import { VideoList } from './components/videoList';
+import {Home} from './components/Home'
 
 function App() {
-  const {state} =useData();
-  console.log(state)
+ 
   return (
     <div className="App">
-      <h1>Video Library</h1>
-      {state.videos.map(({playId,thumbnail,title,channel,views,timestamps})=>
-        <>
-          <img src={thumbnail} alt="thumbnail"/>
-          { title} 
-          {channel}
-          {views}
-          {timestamps}
-        </>
-      )}
+    <Routes>
+     
+      <Route path="/" element={<Home/>} />
+      <Route path="/products" element={<VideoList/>} />  
+      
+    </Routes>  
     </div>
   );
 }
