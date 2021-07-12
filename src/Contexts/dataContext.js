@@ -5,7 +5,8 @@ import { reducer } from "../Reducers/DataReducer";
 const DataContext= createContext();
 
 const initialState={
-    videos:data()
+    videos:data(),
+    notes:[{videoId:"sDFr2Yzd-8s",note:"Type to add note"},{videoId:"GS1Xc0XjoJ8",note:"football"}]
 }
 
 

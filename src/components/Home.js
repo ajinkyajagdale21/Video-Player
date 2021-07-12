@@ -6,7 +6,7 @@ export function Home() {
     return (
         <div className="home">
             <h1 >Welcome To SWIFTFLIX</h1>
-           <Link to = "/products" style= {{textDecoration: 'none'}}> <Button  variant="contained" color="secondary" size="large">Lets Go...</Button> </Link>
+           <Link to = "/videos" style= {{textDecoration: 'none'}}> <Button  variant="contained" color="secondary" size="large">Lets Go...</Button> </Link>
         </div>
     )
 }
