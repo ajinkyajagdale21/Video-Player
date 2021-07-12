@@ -10,14 +10,13 @@ export const data = () => {
         image:"https://yt3.ggpht.com/ytc/AKedOLQ-qSLciDHjc-nIeLYLG7pn4t8N9LrilNRN88eRDg=s176-c-k-c0x00ffffff-no-rj-mo"
       },
       {
-        playId: "GS1Xc0XjoJ8",
-        thumbnail: "https://i.ytimg.com/vi/GS1Xc0XjoJ8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\u0026rs=AOn4CLD9o-K20SKeTT72pNMPuY_pH4vrUg",
-        title:
-          "EURO 2020 | SEMI FINALS - 1 | Spain vs Italy",
-        channel: "Sony Sports India",
-        views: 0,
-        timestamp: "July 7 2021",
-        image: "https://yt3.ggpht.com/ytc/AKedOLQseOokmH7ZI58yb8f-GM3YFFpGYAwx6_H1wqgd-A=s48-c-k-c0x00ffffff-no-rj"    
+        playId:"zlzhH82k86s",
+        thumbnail:"https://i.ytimg.com/vi/zlzhH82k86s/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\u0026rs=AOn4CLAoi-JVA-IoE9JpL8ZcsYuc4nkOdw",
+        title:"EURO 2020 FINALS | Italy vs England | Match highlights",
+        channel:"Sony LIV",
+        views:0,
+        timestamp:"Jul 12, 2021",
+        image:"https://yt3.ggpht.com/ytc/AKedOLQ-qSLciDHjc-nIeLYLG7pn4t8N9LrilNRN88eRDg=s176-c-k-c0x00ffffff-no-rj-mo"
       },
       {
         playId: "HkWxvB1RJq0",
@@ -147,6 +146,16 @@ export const data = () => {
         views: 0,
         timestamp: "Jun 19, 2021",
         image:"https://yt3.ggpht.com/j48IV9u6Asq4oSc8t2HwnYnGorsWEwLVJ4_rmxEEEVOoXh2ZaZPgvJxI8apPQ_auaitXFdfvc08=s48-c-k-c0x00ffffff-no-rj"
+      },
+      {
+        playId: "GS1Xc0XjoJ8",
+        thumbnail: "https://i.ytimg.com/vi/GS1Xc0XjoJ8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\u0026rs=AOn4CLD9o-K20SKeTT72pNMPuY_pH4vrUg",
+        title:
+          "EURO 2020 | SEMI FINALS - 1 | Spain vs Italy",
+        channel: "Sony Sports India",
+        views: 0,
+        timestamp: "July 7 2021",
+        image: "https://yt3.ggpht.com/ytc/AKedOLQseOokmH7ZI58yb8f-GM3YFFpGYAwx6_H1wqgd-A=s48-c-k-c0x00ffffff-no-rj"    
       }
 
     ]

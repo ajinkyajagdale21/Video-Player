@@ -4,22 +4,23 @@ import { useParams } from 'react-router';
 import {useData} from '../Contexts/dataContext'
 import { Nav } from './nav';
 import { Button } from '@material-ui/core';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItem from '@material-ui/core/ListItem';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 
 export function VideoPlayer() {
  const [input,setInput] = React.useState("");
- const {state:{videos,notes}} = useData();
+ const {state:{videos,notes},dispatch} = useData();
  const {videoId} = useParams();
 
  const findVideo=(videos,id)=>{
@@ -30,7 +31,7 @@ export function VideoPlayer() {
  
 const submitForm=(e)=>{
   e.preventDefault();
-  console.log(input)
+  dispatch({type:"ADD_NOTE",payload:{id:videoId,notes:input}})
   setInput("");
 }
 return (
@@ -64,21 +65,21 @@ return (
         <div>
         <form className="notes" onSubmit={submitForm}>
         <TextField id="standard-basic" value={input} className="input" label="Notes" color="secondary" onChange={(e)=>setInput(e.target.value)} />
-        <Button variant="contained" type="submit" color="secondary">ADD</Button>
+        <Button variant="contained" type="submit" color="secondary" >ADD</Button>
        </form>
        {notes.map(note=>
         note.videoId===videoId && 
-       <Card style={{margin:"1rem"}}>
-        <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+        <List >
+                <ListItem style={{backgroundColor:"white"}}>
+                  <ListItemText
+                    primary={note.note}
+                  />
+                    <IconButton >
+                      <DeleteIcon />
+                    </IconButton>
+                 </ListItem>
+        </List>     
            
-             {note.note}
-           
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      </Card>
 
     )}
        </div>        
