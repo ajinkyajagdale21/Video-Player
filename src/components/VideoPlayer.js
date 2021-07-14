@@ -34,6 +34,12 @@ const submitForm=(e)=>{
   dispatch({type:"ADD_NOTE",payload:{id:videoId,notes:input}})
   setInput("");
 }
+const deleteNote=()=>{
+  dispatch({type:"DELETE_NOTE",payload:{videoId}})
+}
+const likedButtonHandler=()=>{
+  dispatch({type:"VIDEO_LIKED",payload:viewVideo})
+}
 return (
   <>
       <Nav/>
@@ -49,7 +55,7 @@ return (
           {viewVideo.title}
             <div className="video-player-flex">
               <p> {viewVideo.views} views .  {viewVideo.timestamp}</p>
-              <ThumbUpIcon style={{margin:"0rem 0.5rem 0rem 4rem"}}/>
+              <ThumbUpIcon onClick={likedButtonHandler} style={{margin:"0rem 0.5rem 0rem 4rem"}}/>
               <ThumbDownIcon style={{margin:"0.5rem"}}/>
               <WatchLaterIcon style={{margin:"0.5rem"}}/>
               <PlaylistAddIcon style={{margin:"0.5rem"}}/> 
@@ -75,7 +81,7 @@ return (
                     primary={note.note}
                   />
                     <IconButton >
-                      <DeleteIcon />
+                      <DeleteIcon onClick={deleteNote}/>
                     </IconButton>
                  </ListItem>
         </List>     
