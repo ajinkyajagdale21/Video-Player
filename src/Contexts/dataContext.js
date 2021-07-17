@@ -8,13 +8,14 @@ const initialState={
     videos:data(),
     notes:[],
     likedVideo:[],
+    dislikedVideo:[],
+    watchLater:[],
 }
 
 
 
 export const DataProvider=({children})=>{
     const [state, dispatch] = useReducer(reducer, initialState)
-    console.log(state.likedVideo)
     return(
     <DataContext.Provider value={{state,dispatch}}>
      {children}

@@ -4,6 +4,8 @@ import { VideoList } from './components/videoList';
 import {Home} from './components/Home'
 import {VideoPlayer} from './components/VideoPlayer'
 import { WatchLater } from './components/WatchLater';
+import { LikedVideo } from './components/LikedVideo';
+import {Playlists} from './components/Playlists';
 
 function App() {
  
@@ -15,6 +17,8 @@ function App() {
       <Route path="/videos" element={<VideoList/>} />  
       <Route path="/videos/:videoId" element={<VideoPlayer/>} />
       <Route path="/watchlater" element={<WatchLater/>}/>
+      <Route path="/likedvideos" element={<LikedVideo/>}/>
+      <Route path="/playlists" element={<Playlists/>}/>
     </Routes>  
     </div>
   );

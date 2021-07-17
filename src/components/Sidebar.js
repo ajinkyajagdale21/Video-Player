@@ -29,16 +29,20 @@ export function Sidebar() {
                   />
                  </ListItem>
                 </Link>
+                <Link to = "/likedvideos">
                  <ListItem className={classes.sidebarLists}>
                  <ListItemText
                     primary="Liked Videos"
                   />
                  </ListItem>
+                 </Link>
+                 <Link to = "/playlists">
                  <ListItem className={classes.sidebarLists} >
                  <ListItemText
                     primary=" Your PlayLists"
                   />
                  </ListItem>
+                 </Link>
              </List>      
         </div>
     )

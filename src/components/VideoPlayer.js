@@ -6,6 +6,7 @@ import { Nav } from './nav';
 import { Button } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
@@ -15,12 +16,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
+import WatchLaterOutlinedIcon from '@material-ui/icons/WatchLaterOutlined';
 
 
 
 export function VideoPlayer() {
  const [input,setInput] = React.useState("");
- const {state:{videos,notes},dispatch} = useData();
+ const {state:{videos,notes,likedVideo,watchLater,dislikedVideo},dispatch} = useData();
  const {videoId} = useParams();
 
  const findVideo=(videos,id)=>{
@@ -39,6 +42,19 @@ const deleteNote=()=>{
 }
 const likedButtonHandler=()=>{
   dispatch({type:"VIDEO_LIKED",payload:viewVideo})
+  dispatch({type:"REMOVE_DISLIKED_VIDEO",payload:viewVideo.playId});
+}
+const dislikeButtonHandler=()=>{
+  dispatch({type:"VIDEO_DISLIKED",payload:viewVideo.playId})
+}
+const isVideoLiked=(id)=>{
+  return likedVideo.some(video=>video.playId===id)
+}
+const isVideoDisliked=(id)=>{
+  return dislikedVideo.some(video=>video.playId===id)
+}
+const isWatchlater=(id)=>{
+  return watchLater.some(video=>video.playId===id)
 }
 return (
   <>
@@ -55,10 +71,10 @@ return (
           {viewVideo.title}
             <div className="video-player-flex">
               <p> {viewVideo.views} views .  {viewVideo.timestamp}</p>
-              <ThumbUpIcon onClick={likedButtonHandler} style={{margin:"0rem 0.5rem 0rem 4rem"}}/>
-              <ThumbDownIcon style={{margin:"0.5rem"}}/>
-              <WatchLaterIcon style={{margin:"0.5rem"}}/>
-              <PlaylistAddIcon style={{margin:"0.5rem"}}/> 
+              {isVideoLiked(viewVideo.playId)?<ThumbUpIcon onClick={dislikeButtonHandler} />:<ThumbUpAltOutlinedIcon onClick={likedButtonHandler}/>}
+              {isVideoDisliked(viewVideo.playId)?<ThumbDownIcon onClick={()=>{dispatch({type:"REMOVE_DISLIKED_VIDEO",payload:viewVideo.playId})}} />:<ThumbDownOutlinedIcon onClick={()=>{dispatch({type:"DISLIKED_VIDEO",payload:viewVideo});dispatch({type:"VIDEO_DISLIKED",payload:viewVideo.playId})}}/>}
+              {isWatchlater(viewVideo.playId)?<WatchLaterIcon onClick={()=>dispatch({type:"REMOVE_WATCH_LATER",payload:viewVideo.playId})} />:<WatchLaterOutlinedIcon onClick={()=>dispatch({type:"WATCH_LATER",payload:viewVideo})} />}
+              <PlaylistAddIcon /> 
              </div> 
              <div className="video-player-flex">
               <Avatar >

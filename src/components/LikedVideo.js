@@ -1,7 +1,7 @@
 import React from 'react'
-import { Sidebar } from './Sidebar'
-import { Nav } from './nav'
 import { useData } from '../Contexts/dataContext'
+import {Nav} from './nav'
+import { Sidebar } from './Sidebar'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -42,19 +42,20 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
   
-export function WatchLater() {
+
+export function LikedVideo() {
     const classes = useStyles();
-    const {state:{watchLater}} = useData();
-    const isWatchLaterEmpty= watchLater.length===0
+    const {state} = useData();
+    const isLikedVideoEmpty= state.likedVideo.length===0
     return (
-        <>
-        <Nav/>
+    <>
+       <Nav/>
         <div className="video-grid">
             <div>
                 <Sidebar/>
-            </div>
+            </div>    
             <div>
-                {isWatchLaterEmpty? <div><h1>There Is No Video In WatchLater Yet</h1> <Link to = "/videos" style= {{textDecoration: 'none'}}> <Button  variant="contained" color="secondary" size="large">Back TO SWIFTFLIX</Button></Link></div> : watchLater.map(video=>
+                {isLikedVideoEmpty?<div><h1>There Is No Video In Liked Videos</h1><Link to = "/videos" style= {{textDecoration: 'none'}}> <Button  variant="contained" color="secondary" size="large">Back TO SWIFTFLIX</Button></Link></div>: state.likedVideo.map(video=>
                     <Link to = {`/videos/${video.playId}`}>
                     <Card className={classes.root} key={video.playId}>
                     <CardHeader
@@ -78,7 +79,9 @@ export function WatchLater() {
                 )}
             </div>
         </div>
-        </>
+    
+    </>
     )
 }
+
 
