@@ -38,7 +38,7 @@ export const data = () => {
         image:"https://yt3.ggpht.com/ytc/AKedOLQnvobEXpzHCxB1g-q2aXbRDzSaznFVHo5OdFML=s176-c-k-c0x00ffffff-no-rj-mo"
       },
       {
-        playId: "GX0H_EzxXvM",
+        playId: "Jmug_dUaL9A",
         thumbnail: "https://i.ytimg.com/vi/GX0H_EzxXvM/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG\u0026rs=AOn4CLBrCpuvEeK202WYVuIME81ikJ6J8w",
         title:
           "Champions League Final | Chelsea 1-0 Manchester City",
