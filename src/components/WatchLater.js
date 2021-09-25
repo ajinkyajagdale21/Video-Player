@@ -71,7 +71,6 @@ export function WatchLater() {
                     {video.title}
                     </Typography>
                     <Typography paragraph>{video.timestamp}</Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">{video.views} views</Typography>
                     </CardContent>
                     </Card>
                     </Link>

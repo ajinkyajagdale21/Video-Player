@@ -70,7 +70,7 @@ return (
           <div className="video-player-description">
           {viewVideo.title}
             <div className="video-player-flex">
-              <p> {viewVideo.views} views .  {viewVideo.timestamp}</p>
+              <p> {viewVideo.timestamp}</p>
               {isVideoLiked(viewVideo.playId)?<ThumbUpIcon onClick={dislikeButtonHandler} />:<ThumbUpAltOutlinedIcon onClick={likedButtonHandler}/>}
               {isVideoDisliked(viewVideo.playId)?<ThumbDownIcon onClick={()=>{dispatch({type:"REMOVE_DISLIKED_VIDEO",payload:viewVideo.playId})}} />:<ThumbDownOutlinedIcon onClick={()=>{dispatch({type:"DISLIKED_VIDEO",payload:viewVideo});dispatch({type:"VIDEO_DISLIKED",payload:viewVideo.playId})}}/>}
               {isWatchlater(viewVideo.playId)?<WatchLaterIcon onClick={()=>dispatch({type:"REMOVE_WATCH_LATER",payload:viewVideo.playId})} />:<WatchLaterOutlinedIcon onClick={()=>dispatch({type:"WATCH_LATER",payload:viewVideo})} />}
