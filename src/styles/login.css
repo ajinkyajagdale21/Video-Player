@@ -3,6 +3,8 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  max-width: fit-content;
+  margin: auto;
 }
 .submit-button {
   text-decoration: none;
@@ -10,4 +12,10 @@
 }
 a {
   text-decoration: none;
+}
+.text-password {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: inherit;
 }
