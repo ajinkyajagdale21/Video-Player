@@ -17,7 +17,7 @@ export const Login=()=>{
           id="outlined-required"
           label="enter E-mail"
         />
-        <div class="text-password">
+        <div className="text-password">
         <TextField
           required
           id="outlined-required"
