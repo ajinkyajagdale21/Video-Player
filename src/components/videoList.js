@@ -17,8 +17,8 @@ export function VideoList() {
             </div>
             <div> 
             {state.videos.map((video)=>
-            <Link to = {`/videos/${video.playId}`}>
-              <VideoCard video={video} key={video.playId}/>
+            <Link key={video.playId} to = {`/videos/${video.playId}`}>
+              <VideoCard  video={video} />
             </Link>
             )}
             </div>

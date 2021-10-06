@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   export  function VideoCard({video}) {
     const classes = useStyles();  
     return (
-      <Card className={classes.root}>
+      <Card className={classes.root} >
          <CardHeader
         avatar={
           <Avatar >
