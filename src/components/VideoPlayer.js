@@ -74,7 +74,7 @@ return (
               {isVideoDisliked(viewVideo.playId)?<ThumbDownIcon onClick={()=>{dispatch({type:"REMOVE_DISLIKED_VIDEO",payload:viewVideo.playId})}} />:<ThumbDownOutlinedIcon onClick={()=>{dispatch({type:"DISLIKED_VIDEO",payload:viewVideo});dispatch({type:"VIDEO_DISLIKED",payload:viewVideo.playId})}}/>}
               {isWatchlater(viewVideo.playId)?<WatchLaterIcon onClick={()=>dispatch({type:"REMOVE_WATCH_LATER",payload:viewVideo.playId})} />:<WatchLaterOutlinedIcon onClick={()=>dispatch({type:"WATCH_LATER",payload:viewVideo})} />} 
              </div> 
-             <div className="video-player-flex">
+             <div className="video-player-channel">
               <Avatar >
                 <img src={viewVideo.image} style={{width:"4rem",height:"2.5rem"}} alt="channel"/>
               </Avatar>

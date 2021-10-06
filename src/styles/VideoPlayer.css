@@ -3,10 +3,21 @@
   grid-template-columns: 2fr 1fr;
   grid-column-gap: 1rem;
 }
+@media screen and (max-width: 640px) {
+  .video-player-grid {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .video-player-description {
   margin-top: 2.5rem;
 }
 .video-player-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.video-player-channel {
   display: flex;
   align-items: center;
   justify-content: center;

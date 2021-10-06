@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function Nav() {
   const classes = useStyles();
-  const {setToggleSidebar} = useData();
+  const {setToggleSidebar,width} = useData();
   return (
     <div className={classes.root}>
       <AppBar style={{backgroundColor:"#0D0D0F"}}>
@@ -66,7 +66,7 @@ export function Nav() {
           </Typography>
          
           <Link to="/login"><AccountCircleIcon color="secondary" style={{cursor: "pointer"}}/></Link>
-          <MenuIcon className="ham-icon" onClick={()=>setToggleSidebar(prev=>!prev)} color="secondary" style={{padding:"0rem 2rem"}}/>
+          <MenuIcon onClick={()=>setToggleSidebar(prev=>!prev)} color="secondary" style={{padding:"0rem 2rem",display:`${width>640?'none':'inline'}`}}/>
         </Toolbar>
       </AppBar>
     </div>
