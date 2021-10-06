@@ -5,7 +5,6 @@ import {Home} from './components/Home'
 import {VideoPlayer} from './components/VideoPlayer'
 import { WatchLater } from './components/WatchLater';
 import { LikedVideo } from './components/LikedVideo';
-import {Playlists} from './components/Playlists';
 import {User} from './components/user'
 import { Login } from './components/login';
 import {Signup} from './components/Signup';
@@ -21,7 +20,6 @@ function App() {
       <Route path="/videos/:videoId" element={<VideoPlayer/>} />
       <Route path="/watchlater" element={<WatchLater/>}/>
       <Route path="/likedvideos" element={<LikedVideo/>}/>
-      <Route path="/playlists" element={<Playlists/>}/>
       <Route path="/user" element={<User/>} />
       <Route path="/login" element={<Login/>}/>
       <Route path="/signup" element={<Signup/>} />

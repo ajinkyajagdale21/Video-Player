@@ -4,6 +4,10 @@ body {
   background-color: #e8e8e8;
   font-family: "Poppins", sans-serif;
 }
+.ham-icon {
+  display: none;
+}
+
 @import "./styles/home.css";
 @import "./styles/VideoPlayer.css";
 @import "./styles//videolist.css";

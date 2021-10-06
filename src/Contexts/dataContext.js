@@ -1,3 +1,4 @@
+import React,{useState} from 'react'
 import { createContext,useReducer,useContext } from "react"
 import { data } from "../data";
 import { reducer } from "../Reducers/DataReducer";
@@ -16,8 +17,9 @@ const initialState={
 
 export const DataProvider=({children})=>{
     const [state, dispatch] = useReducer(reducer, initialState)
+    const [toggleSidebar,setToggleSidebar] =useState(false);
     return(
-    <DataContext.Provider value={{state,dispatch}}>
+    <DataContext.Provider value={{state,dispatch,toggleSidebar,setToggleSidebar}}>
      {children}
     </DataContext.Provider>        
     )

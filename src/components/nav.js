@@ -3,14 +3,19 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { alpha, makeStyles } from '@material-ui/core/styles';
+import {makeStyles } from '@material-ui/core/styles';
 import HomeIcon from '@material-ui/icons/Home';
+import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {Link} from 'react-router-dom'
+import {useData} from '../Contexts/dataContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    marginBottom: '5rem',
+    position:'sticky',
+    zIndex:'100'
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -22,30 +27,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
-  search: {
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
+ inputRoot: {
     color: 'white',
   },
   inputInput: {
@@ -65,10 +47,10 @@ const useStyles = makeStyles((theme) => ({
 
 export function Nav() {
   const classes = useStyles();
-
+  const {setToggleSidebar} = useData();
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{backgroundColor:"#0D0D0F",marginBottom:"2rem"}}>
+      <AppBar style={{backgroundColor:"#0D0D0F"}}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -84,6 +66,7 @@ export function Nav() {
           </Typography>
          
           <Link to="/login"><AccountCircleIcon color="secondary" style={{cursor: "pointer"}}/></Link>
+          <MenuIcon className="ham-icon" onClick={()=>setToggleSidebar(prev=>!prev)} color="secondary" style={{padding:"0rem 2rem"}}/>
         </Toolbar>
       </AppBar>
     </div>

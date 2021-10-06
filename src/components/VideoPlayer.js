@@ -9,7 +9,6 @@ import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
-import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -73,8 +72,7 @@ return (
               <p> {viewVideo.timestamp}</p>
               {isVideoLiked(viewVideo.playId)?<ThumbUpIcon onClick={dislikeButtonHandler} />:<ThumbUpAltOutlinedIcon onClick={likedButtonHandler}/>}
               {isVideoDisliked(viewVideo.playId)?<ThumbDownIcon onClick={()=>{dispatch({type:"REMOVE_DISLIKED_VIDEO",payload:viewVideo.playId})}} />:<ThumbDownOutlinedIcon onClick={()=>{dispatch({type:"DISLIKED_VIDEO",payload:viewVideo});dispatch({type:"VIDEO_DISLIKED",payload:viewVideo.playId})}}/>}
-              {isWatchlater(viewVideo.playId)?<WatchLaterIcon onClick={()=>dispatch({type:"REMOVE_WATCH_LATER",payload:viewVideo.playId})} />:<WatchLaterOutlinedIcon onClick={()=>dispatch({type:"WATCH_LATER",payload:viewVideo})} />}
-              <PlaylistAddIcon /> 
+              {isWatchlater(viewVideo.playId)?<WatchLaterIcon onClick={()=>dispatch({type:"REMOVE_WATCH_LATER",payload:viewVideo.playId})} />:<WatchLaterOutlinedIcon onClick={()=>dispatch({type:"WATCH_LATER",payload:viewVideo})} />} 
              </div> 
              <div className="video-player-flex">
               <Avatar >

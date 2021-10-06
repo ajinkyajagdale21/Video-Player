@@ -7,17 +7,18 @@ import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     sidebarList:{
-      marginBottom:theme.spacing(10)
+      marginBottom:theme.spacing(10),
+      
     }
   }));
 export function Sidebar() {
     const classes = useStyles();
     return (
         <div>
-          <List >
-              <Link to = "/videos">
+          <List style={{backgroundColor:"#E8E8E8",boxShadow:'3px 0px #F87171',position:'fixed',height:'83%',zIndex:'500',width:'12rem'}}>
+              <Link to = "/videos" >
                 <ListItem className={classes.sidebarLists} >
-                  <ListItemText
+                  <ListItemText 
                     primary="Home"
                   />
                 </ListItem>
@@ -33,13 +34,6 @@ export function Sidebar() {
                  <ListItem className={classes.sidebarLists}>
                  <ListItemText
                     primary="Liked Videos"
-                  />
-                 </ListItem>
-                 </Link>
-                 <Link to = "/playlists">
-                 <ListItem className={classes.sidebarLists} >
-                 <ListItemText
-                    primary=" Your PlayLists"
                   />
                  </ListItem>
                  </Link>
