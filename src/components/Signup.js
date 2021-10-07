@@ -2,19 +2,31 @@ import React, { useState } from 'react';
 import { Nav } from './nav';
 import TextField from '@material-ui/core/TextField';
 import {Button} from '@material-ui/core'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import {Visibility,VisibilityOff} from '@material-ui/icons';
 import {signupValidation} from '../util'
+import axios from 'axios';
 
 export const Signup=()=>{
     const [showPassword,setShowPassword]= useState(false)
     const [showConfirmPassword,setShowConfirmPassword]= useState(false)
     const [userInput,setUserInput] = useState({firstName:"",lastName:"",email:"",password:"",confirmPassword:""})
     const [error,setError]= useState({firstNameError:"",lastNameError:"",emailError:"",passwordError:"",confirmPasswordError:""})
+    const navigate=useNavigate();
     const signupHandler=async(e)=>{
       e.preventDefault()
       if(signupValidation(userInput,setError)){
-        
+        try{
+          const {data:{success}}= await axios.post(`https://swiftflix.herokuapp.com/auth/signup`,{
+            firstName:userInput?.firstName,lastName:userInput?.lastName,email:userInput?.email,password:userInput?.password,
+          })
+          if(success){
+            navigate('/login');
+          }
+        }
+        catch(error){
+          console.log("Didn't Signed Up Please try again!!",error)
+        }
       }
     }
     return(
