@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import ReactPlayer from 'react-player'
 import { useParams } from 'react-router';
 import {useData} from '../Contexts/dataContext'
@@ -36,7 +36,10 @@ export function VideoPlayer() {
     console.log(error);
   }
 }
- findVideo(videoId)
+useEffect(() => {
+  findVideo(videoId)   
+},[videoId])
+ 
  
  
 const submitForm=(e)=>{
