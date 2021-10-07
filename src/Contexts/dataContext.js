@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import { createContext,useReducer,useContext } from "react"
-import { data } from "../data";
+//import { data } from "../data";
+import axios from 'axios';
 import { reducer } from "../Reducers/DataReducer";
 
 const DataContext= createContext();
 
 const initialState={
-    videos:data(),
+    videos:[],
     notes:[],
     likedVideo:[],
     dislikedVideo:[],
@@ -19,7 +20,7 @@ export const DataProvider=({children})=>{
     const [state, dispatch] = useReducer(reducer, initialState)
     const [width, setWidth]   = useState(window.innerWidth);
     const [toggleSidebar,setToggleSidebar] =useState(width>640?true:false);
-             
+    const [loader,setLoader]= useState(false)         
     const updateDimensions = () => {
         setWidth(window.innerWidth);
     }
@@ -27,8 +28,21 @@ export const DataProvider=({children})=>{
         window.addEventListener("resize", updateDimensions);
         return () => window.removeEventListener("resize", updateDimensions);
     }, []);
+    useEffect(()=>{
+        (async()=>{
+            try{
+            setLoader(true);
+            const {data:{videos}}= await axios.get(`https://swiftflix.herokuapp.com/videos`)
+            setLoader(false);
+            dispatch({type:'DATA',payload:videos})
+            }
+            catch(error){
+                console.log({message:error.message})
+            }
+        })()
+    },[])
     return(
-    <DataContext.Provider value={{state,dispatch,toggleSidebar,setToggleSidebar,width}}>
+    <DataContext.Provider value={{state,dispatch,loader,toggleSidebar,setToggleSidebar,width}}>
      {children}
     </DataContext.Provider>        
     )

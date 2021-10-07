@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom'
 
 
 export function VideoList() {
-    const {state} =useData();
+    const {state,loader} =useData();
     return (
       <div>
       <Nav/>
@@ -16,8 +16,8 @@ export function VideoList() {
               <Sidebar/>      
             </div>
             <div> 
-            {state.videos.map((video)=>
-            <Link key={video.playId} to = {`/videos/${video.playId}`}>
+            {loader ?<h1>Loading...</h1>: state.videos.map((video)=>
+            <Link to = {`/videos/${video._id}`} key={video._id}>
               <VideoCard  video={video} />
             </Link>
             )}

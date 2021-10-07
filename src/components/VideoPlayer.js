@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import ReactPlayer from 'react-player'
 import { useParams } from 'react-router';
 import {useData} from '../Contexts/dataContext'
@@ -17,19 +17,27 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 import WatchLaterOutlinedIcon from '@material-ui/icons/WatchLaterOutlined';
+import axios from 'axios';
 
 
 
 export function VideoPlayer() {
  const [input,setInput] = React.useState("");
- const {state:{videos,notes,likedVideo,watchLater,dislikedVideo},dispatch} = useData();
+ const {state:{notes,likedVideo,watchLater,dislikedVideo},dispatch} = useData();
+ const [viewVideo,setViewVideo]= useState({})
  const {videoId} = useParams();
 
- const findVideo=(videos,id)=>{
-  return videos.find(video=>video.playId===id) 
+ const findVideo=async(id)=>{
+  try{
+  const {data:{video}} = await axios.get(`https://swiftflix.herokuapp.com/videos/${id}`) 
+  setViewVideo(video)
+  }
+  catch(error){
+    console.log(error);
+  }
 }
- const viewVideo= findVideo(videos,videoId)
-
+ findVideo(videoId)
+ 
  
 const submitForm=(e)=>{
   e.preventDefault();
