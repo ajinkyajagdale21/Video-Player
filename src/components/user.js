@@ -17,7 +17,7 @@ export const User=()=>{
     return(
         <> 
             <Nav/>
-            <h1>Welcome {name}</h1>
+            <h1>Welcome {name}!!</h1>
             <Button onClick={logoutHandler}  variant="contained" color="secondary" size="large">LOGOUT</Button>
         </>
     )
