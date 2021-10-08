@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useData } from '../Contexts/dataContext'
 import {Nav} from './nav'
 import { Sidebar } from './Sidebar'
@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
+import axios from 'axios';
+import { useAuth } from '../Contexts/authContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,8 +47,20 @@ const useStyles = makeStyles((theme) => ({
 
 export function LikedVideo() {
     const classes = useStyles();
-    const {state} = useData();
-    const isLikedVideoEmpty= state.likedVideo.length===0
+    const {state,dispatch} = useData();
+    const {state:{userId}} = useAuth();
+    const isLikedVideoEmpty= state.likedVideo.length===0;
+    useEffect(()=>{
+      (async()=>{
+        try{
+        const {data:{likedVideos}} = await axios.get(`https://swiftflix.herokuapp.com/likedvideos/${userId}`)
+          dispatch({type:'LOAD_LIKEDVIDEOS',payload:likedVideos})
+        }
+        catch(error){
+          console.log({message: error.message})
+        }
+      })()
+    },[userId,dispatch])
     return (
     <>
        <Nav/>
@@ -56,8 +70,8 @@ export function LikedVideo() {
             </div>    
             <div>
                 {isLikedVideoEmpty?<div><h1>There Is No Video In Liked Videos</h1><Link to = "/videos" style= {{textDecoration: 'none'}}> <Button  variant="contained" color="secondary" size="large">Back TO SWIFTFLIX</Button></Link></div>: state.likedVideo.map(video=>
-                    <Link to = {`/videos/${video.playId}`}>
-                    <Card className={classes.root} key={video.playId}>
+                    <Link to = {`/videos/${video._id}`}>
+                    <Card className={classes.root} key={video._id}>
                     <CardHeader
                     avatar={
                     <Avatar >
