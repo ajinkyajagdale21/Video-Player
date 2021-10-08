@@ -5,7 +5,7 @@ import {Home} from './components/Home'
 import {VideoPlayer} from './components/VideoPlayer'
 import { WatchLater } from './components/WatchLater';
 import { LikedVideo } from './components/LikedVideo';
-import {User} from './components/user'
+import {User} from './components/User'
 import { Login } from './components/login';
 import {Signup} from './components/Signup';
 import {PrivateRoute} from './util';

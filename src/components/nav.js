@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {Link} from 'react-router-dom'
 import {useData} from '../Contexts/dataContext'
+import {useAuth} from '../Contexts/authContext'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 export function Nav() {
   const classes = useStyles();
   const {setToggleSidebar,width} = useData();
+  const {state:{login}} = useAuth();
   return (
     <div className={classes.root}>
       <AppBar style={{backgroundColor:"#0D0D0F"}}>
@@ -64,9 +66,14 @@ export function Nav() {
           <Typography className={classes.title} variant="h6" noWrap color="secondary">
             SWIFTFLIX
           </Typography>
-         
+         {
+          login?
+          <Link to="/user"><AccountCircleIcon color="secondary" style={{cursor: "pointer"}}/></Link>
+          :
           <Link to="/login"><AccountCircleIcon color="secondary" style={{cursor: "pointer"}}/></Link>
-          <MenuIcon onClick={()=>setToggleSidebar(prev=>!prev)} color="secondary" style={{padding:"0rem 2rem",display:`${width>640?'none':'inline'}`}}/>
+
+         }
+                    <MenuIcon onClick={()=>setToggleSidebar(prev=>!prev)} color="secondary" style={{padding:"0rem 2rem",display:`${width>640?'none':'inline'}`}}/>
         </Toolbar>
       </AppBar>
     </div>
