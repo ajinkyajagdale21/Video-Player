@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import ReactPlayer from 'react-player'
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import {useData} from '../Contexts/dataContext'
 import { Nav } from './Nav';
 import { Button } from '@material-ui/core';
@@ -18,6 +18,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 import WatchLaterOutlinedIcon from '@material-ui/icons/WatchLaterOutlined';
 import axios from 'axios';
+import { useAuth } from '../Contexts/authContext';
 
 
 
@@ -26,7 +27,7 @@ export function VideoPlayer() {
  const {state:{notes,likedVideo,watchLater,dislikedVideo},dispatch} = useData();
  const [viewVideo,setViewVideo]= useState({})
  const {videoId} = useParams();
-
+ const {state:{userId}} = useAuth()
  const findVideo=async(id)=>{
   try{
   const {data:{video}} = await axios.get(`https://swiftflix.herokuapp.com/videos/${id}`) 
@@ -50,27 +51,95 @@ const submitForm=(e)=>{
 const deleteNote=()=>{
   dispatch({type:"DELETE_NOTE",payload:{videoId}})
 }
-const likedButtonHandler=()=>{
-  dispatch({type:"VIDEO_LIKED",payload:viewVideo})
-  dispatch({type:"REMOVE_DISLIKED_VIDEO",payload:viewVideo.playId});
+const likedButtonHandler=async()=>{
+  try{
+   
+    if(isVideoDisliked(videoId)){
+      const {data:{success,video}}= await axios.delete(`https://swiftflix.herokuapp.com/unlikedvideos/${userId}/${videoId}`)
+      if(success){
+        dispatch({type:"REMOVE_FROM_DISLIKED_VIDEO",payload:video._id});
+      }
+    }
+    const {data:{video,success}} = await axios.post(`https://swiftflix.herokuapp.com/likedvideos/${userId}`,{playId:videoId})
+    if(success){
+      dispatch({type:"VIDEO_LIKED",payload:video})
+    }    
+  }
+  catch(error){
+    console.log({message:error.message})
+  }
+  
 }
-const dislikeButtonHandler=()=>{
-  dispatch({type:"VIDEO_DISLIKED",payload:viewVideo.playId})
+const dislikeButtonHandler=async()=>{
+  try{
+    if(isVideoLiked(videoId)){
+      const {data:{success,video}}= await axios.delete(`https://swiftflix.herokuapp.com/likedvideos/${userId}/${videoId}`)
+      if(success){
+        dispatch({type:"VIDEO_DISLIKED",payload:video._id})
+      }
+    }
+    const {data:{video,success}} = await axios.post(`https://swiftflix.herokuapp.com/unlikedvideos/${userId}`,{playId:videoId})
+    if(success){
+      dispatch({type:"ADD_TO_DISLIKED_VIDEO",payload:video})
+    }
+  }
+  catch(error){
+    console.log({message:error.message})
+  }
 }
-const isVideoLiked=(id)=>{
-  return likedVideo.some(video=>video.playId===id)
+const watchLaterClicked=async(id)=>{
+    try{
+      const {data:{video}} = await axios.post(`https://swiftflix.herokuapp.com/watchlater/${userId}`,{playId:id})
+      dispatch({type:"WATCH_LATER",payload:video})
+    }
+    catch(error){
+      console.log({message:error.message})
+    }
 }
-const isVideoDisliked=(id)=>{
-  return dislikedVideo.some(video=>video.playId===id)
+const watchLaterUnClicked=async(id)=>{
+    try {
+      const {data:{video}} = await axios.delete(`https://swiftflix.herokuapp.com/watchlater/${userId}/${id}`)
+      dispatch({type:"REMOVE_WATCH_LATER",payload:video._id})
+    }
+    catch(error){
+      console.log({message:error.message})
+    }
 }
-const isWatchlater=(id)=>{
-  return watchLater.some(video=>video.playId===id)
+const onlyRemoveFromLikedVideos=async()=>{
+      const {data:{success,video}}= await axios.delete(`https://swiftflix.herokuapp.com/likedvideos/${userId}/${videoId}`)
+      if(success){
+        dispatch({type:"VIDEO_DISLIKED",payload:video._id})
+      }
+}
+const onlyRemoveFromUnLikedVideos=async()=>{
+  const {data:{success,video}}= await axios.delete(`https://swiftflix.herokuapp.com/unlikedvideos/${userId}/${videoId}`)
+      if(success){
+        dispatch({type:"REMOVE_FROM_DISLIKED_VIDEO",payload:video._id});
+      }
+}
+const isVideoLiked=()=>{
+  if(likedVideo.some(video=>video._id===videoId))
+  {
+    return true;
+  }
+  return false;
+}
+function isVideoDisliked(){
+  return dislikedVideo.some(video=>video._id===videoId)
+}
+const isWatchlater=()=>{
+  if( watchLater.some(item=>item._id===videoId)){
+    return true;
+  }
+  console.log("hi")
+  return false;
 }
 return (
   <>
       <Nav/>
-      <div className="video-player-grid">
-        <div>
+      { viewVideo &&
+     <div className="video-player-grid">
+        <div >
           <ReactPlayer
             url={`https://www.youtube.com/watch?v=${videoId}`}
             controls
@@ -81,9 +150,9 @@ return (
           {viewVideo.title}
             <div className="video-player-flex">
               <p> {viewVideo.timestamp}</p>
-              {isVideoLiked(viewVideo.playId)?<ThumbUpIcon onClick={dislikeButtonHandler} />:<ThumbUpAltOutlinedIcon onClick={likedButtonHandler}/>}
-              {isVideoDisliked(viewVideo.playId)?<ThumbDownIcon onClick={()=>{dispatch({type:"REMOVE_DISLIKED_VIDEO",payload:viewVideo.playId})}} />:<ThumbDownOutlinedIcon onClick={()=>{dispatch({type:"DISLIKED_VIDEO",payload:viewVideo});dispatch({type:"VIDEO_DISLIKED",payload:viewVideo.playId})}}/>}
-              {isWatchlater(viewVideo.playId)?<WatchLaterIcon onClick={()=>dispatch({type:"REMOVE_WATCH_LATER",payload:viewVideo.playId})} />:<WatchLaterOutlinedIcon onClick={()=>dispatch({type:"WATCH_LATER",payload:viewVideo})} />} 
+              {likedVideo && isVideoLiked()?<ThumbUpIcon onClick={onlyRemoveFromLikedVideos} />:<ThumbUpAltOutlinedIcon onClick={likedButtonHandler}/>}
+              {dislikedVideo && isVideoDisliked()?<ThumbDownIcon onClick={onlyRemoveFromUnLikedVideos} />:<ThumbDownOutlinedIcon onClick={dislikeButtonHandler}/>}
+              {watchLater && isWatchlater()?<WatchLaterIcon onClick={()=>watchLaterUnClicked(videoId)} />:<WatchLaterOutlinedIcon onClick={()=>watchLaterClicked(videoId)} />} 
              </div> 
              <div className="video-player-channel">
               <Avatar >
@@ -115,6 +184,6 @@ return (
     )}
        </div>        
       </div>
-  </>)
+          }    </>)
 }
 

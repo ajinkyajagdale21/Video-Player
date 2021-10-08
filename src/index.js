@@ -9,12 +9,15 @@ import {AuthProvider} from './Contexts/authContext'
 ReactDOM.render(
   <React.StrictMode>
   <Router>
+  <AuthProvider>
    <DataProvider>
-   <AuthProvider>
+   
     <App />
-    </AuthProvider>
+    
     </DataProvider>
+    </AuthProvider>
     </Router>
+    
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import { Sidebar } from './Sidebar'
 import { Nav } from './Nav'
 import { useData } from '../Contexts/dataContext'
@@ -11,8 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import {Link} from 'react-router-dom';
 import { Button } from '@material-ui/core';
-import { useAuth } from '../Contexts/authContext';
-import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,20 +44,9 @@ const useStyles = makeStyles((theme) => ({
   
 export function WatchLater() {
     const classes = useStyles();
-    const {state:{watchLater},dispatch} = useData();
-    const {state:{userId}}= useAuth()
+    const {state:{watchLater}} = useData();
     const isWatchLaterEmpty= watchLater.length===0
-    useEffect(()=>{
-      (async()=>{
-        try{
-        const {data:{watchLater}}= await axios.get(`https://swiftflix.herokuapp.com/watchlater/${userId}`)
-        dispatch({type:'LOAD_WATCHLATER',payload:watchLater})
-        }
-        catch(error){
-          console.log({message:error.message})
-        }
-      })()
-    },[userId,dispatch])
+    
     return (
         <>
         <Nav/>
@@ -69,8 +56,8 @@ export function WatchLater() {
             </div>
             <div>
                 {isWatchLaterEmpty? <div><h1>There Is No Video In WatchLater Yet</h1> <Link to = "/videos" style= {{textDecoration: 'none'}}> <Button  variant="contained" color="secondary" size="large">Back TO SWIFTFLIX</Button></Link></div> : watchLater.map(video=>
-                    <Link to = {`/videos/${video._id}`}>
-                    <Card className={classes.root} key={video._id}>
+                    <Link to = {`/videos/${video._id}`} key={video._id}>
+                    <Card className={classes.root} >
                     <CardHeader
                     avatar={
                     <Avatar >
