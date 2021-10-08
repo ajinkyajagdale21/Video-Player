@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useData } from '../Contexts/dataContext'
-import {Nav} from './nav'
+import {Nav} from './Nav'
 import { Sidebar } from './Sidebar'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';

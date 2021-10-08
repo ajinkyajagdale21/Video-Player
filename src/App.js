@@ -1,12 +1,12 @@
 import './App.css';
 import {Routes,Route} from 'react-router-dom';
-import { VideoList } from './components/videoList';
+import { VideoList } from './components/VideoList';
 import {Home} from './components/Home'
 import {VideoPlayer} from './components/VideoPlayer'
 import { WatchLater } from './components/WatchLater';
 import { LikedVideo } from './components/LikedVideo';
 import {User} from './components/User'
-import { Login } from './components/login';
+import { Login } from './components/Login';
 import {Signup} from './components/Signup';
 import {PrivateRoute} from './util';
 function App() {

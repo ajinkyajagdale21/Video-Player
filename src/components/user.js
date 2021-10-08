@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav } from './nav';
+import { Nav } from './Nav';
 import { useAuth } from '../Contexts/authContext';
 import { setupAuthHeaderForServiceCalls } from '../util';
 import { useNavigate } from 'react-router-dom';

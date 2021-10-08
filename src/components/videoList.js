@@ -1,6 +1,6 @@
 import React from 'react'
 import {useData} from '../Contexts/dataContext'
-import {Nav} from './nav'
+import {Nav} from './Nav'
 import { VideoCard } from './VideoCard';
 import {Sidebar} from './Sidebar';
 import {Link} from 'react-router-dom'

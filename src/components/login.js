@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import { Nav } from './nav';
+import { Nav } from './Nav';
 import TextField from '@material-ui/core/TextField';
 import {Button} from '@material-ui/core'
 import {Link, useNavigate} from 'react-router-dom'

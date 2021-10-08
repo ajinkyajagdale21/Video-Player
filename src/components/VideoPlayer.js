@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import ReactPlayer from 'react-player'
 import { useParams } from 'react-router';
 import {useData} from '../Contexts/dataContext'
-import { Nav } from './nav';
+import { Nav } from './Nav';
 import { Button } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
