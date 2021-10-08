@@ -8,7 +8,7 @@ import { LikedVideo } from './components/LikedVideo';
 import {User} from './components/user'
 import { Login } from './components/login';
 import {Signup} from './components/Signup';
-
+import {PrivateRoute} from './util';
 function App() {
  
   return (
@@ -18,8 +18,8 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/videos" element={<VideoList/>} />  
       <Route path="/videos/:videoId" element={<VideoPlayer/>} />
-      <Route path="/watchlater" element={<WatchLater/>}/>
-      <Route path="/likedvideos" element={<LikedVideo/>}/>
+      <PrivateRoute path="/watchlater" element={<WatchLater/>}/>
+      <PrivateRoute path="/likedvideos" element={<LikedVideo/>}/>
       <Route path="/user" element={<User/>} />
       <Route path="/login" element={<Login/>}/>
       <Route path="/signup" element={<Signup/>} />

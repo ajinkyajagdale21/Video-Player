@@ -1,3 +1,7 @@
+import axios from 'axios'
+import { Navigate, Route } from 'react-router';
+import { useAuth } from './Contexts/authContext';
+
 export const validation=(email,setError)=>{
     let valid=true;
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -63,4 +67,18 @@ export const signupValidation=(userInput,setError)=>{
     }
     
     return valid;
+}
+export function setupAuthHeaderForServiceCalls(token) {
+    if (token) {
+      return (axios.defaults.headers.common["Authorization"] = token);
+    }
+    delete axios.defaults.headers.common["Authorization"];
+  }
+
+export const PrivateRoute=({path,...rest})=>{
+    const {state:{login}} = useAuth();
+    if(login){
+       return <Route path={path} {...rest}/>
+    }
+    return <Navigate to="/login" replace state={{from :path}}/>
 }
