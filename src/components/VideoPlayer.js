@@ -13,7 +13,6 @@ import TextField from '@material-ui/core/TextField';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ThumbDownOutlinedIcon from '@material-ui/icons/ThumbDownOutlined';
 import WatchLaterOutlinedIcon from '@material-ui/icons/WatchLaterOutlined';
@@ -41,15 +40,43 @@ useEffect(() => {
   findVideo(videoId)   
 },[videoId])
  
+ useEffect(()=>{
+  (async()=>{
+    try{
+    const {data:{notes,success}} = await axios.get(`https://swiftflix.herokuapp.com/notes/${userId}`)
+    if(success){
+    dispatch({type:"LOAD_NOTES",payload:notes.notes})
+    }   
+  }
+  catch(error){
+    console.log({message:error.message})
+  }
+  })()
+ },[dispatch,userId])
  
- 
-const submitForm=(e)=>{
+const submitForm=async(e)=>{
   e.preventDefault();
-  dispatch({type:"ADD_NOTE",payload:{id:videoId,notes:input}})
-  setInput("");
+  try{
+    const {data:{note,success}} = await axios.post(`https://swiftflix.herokuapp.com/notes/${userId}`,{playId:videoId,text:input}) 
+    if(success){
+      dispatch({type:"ADD_NOTE",payload:note})
+      setInput("");
+    }
+  }
+  catch(error){
+    console.log({message:error.message})
+  } 
 }
-const deleteNote=()=>{
-  dispatch({type:"DELETE_NOTE",payload:{videoId}})
+const deleteNote=async(id)=>{
+  try{
+  const {data:{success,note}} = await axios.delete(`https://swiftflix.herokuapp.com/notes/${userId}/${id}`)
+  if(success){
+  dispatch({type:"DELETE_NOTE",payload:note._id})
+  }  
+}
+  catch(error){
+    console.log({message:error.message})
+  }
 }
 const likedButtonHandler=async()=>{
   try{
@@ -131,7 +158,6 @@ const isWatchlater=()=>{
   if( watchLater.some(item=>item._id===videoId)){
     return true;
   }
-  console.log("hi")
   return false;
 }
 return (
@@ -167,21 +193,18 @@ return (
         <TextField id="standard-basic" value={input} className="input" label="Notes" color="secondary" onChange={(e)=>setInput(e.target.value)} />
         <Button variant="contained" type="submit" color="secondary" >ADD</Button>
        </form>
-       {notes.map(note=>
-        note.videoId===videoId && 
-        <List >
+       { notes.map(note=>
+                note.playId===videoId && 
+        <List key = {note._id}>
                 <ListItem style={{backgroundColor:"white"}}>
                   <ListItemText
-                    primary={note.note}
+                    primary={note.text}
                   />
-                    <IconButton >
-                      <DeleteIcon onClick={deleteNote}/>
-                    </IconButton>
-                 </ListItem>
+                  <DeleteIcon onClick={()=>deleteNote(note._id)}/>
+                  
+                 </ListItem> 
         </List>     
-           
-
-    )}
+       )}
        </div>        
       </div>
           }    </>)

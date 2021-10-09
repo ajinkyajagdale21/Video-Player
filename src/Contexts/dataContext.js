@@ -16,8 +16,6 @@ const initialState={
     watchLater:[],
 }
 
-
-
 export const DataProvider=({children})=>{
     const [state, dispatch] = useReducer(reducer, initialState)
     const [width, setWidth]   = useState(window.innerWidth);
