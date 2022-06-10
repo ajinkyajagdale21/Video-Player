@@ -1,29 +1,30 @@
-import './App.css';
-import {Routes,Route} from 'react-router-dom';
-import { VideoList } from './components/VideoList';
-import {Home} from './components/Home'
-import {VideoPlayer} from './components/VideoPlayer'
-import { WatchLater } from './components/WatchLater';
-import { LikedVideo } from './components/LikedVideo';
-import {User} from './components/User'
-import { Login } from './components/Login';
-import {Signup} from './components/Signup';
-import {PrivateRoute} from './util';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { VideoList } from "./components/VideoList";
+import { Home } from "./components/Home";
+import { VideoPlayer } from "./components/VideoPlayer";
+import { WatchLater } from "./components/WatchLater";
+import { LikedVideo } from "./components/LikedVideo";
+import { User } from "./components/User";
+import { Login } from "./components/Login";
+import { Signup } from "./components/Signup";
+import { PrivateRoute } from "./util";
+import { ToastContainer } from "react-toast";
+
 function App() {
- 
   return (
     <div className="App">
-    <Routes>
-     
-      <Route path="/" element={<Home/>} />
-      <Route path="/videos" element={<VideoList/>} />  
-      <Route path="/videos/:videoId" element={<VideoPlayer/>} />
-      <PrivateRoute path="/watchlater" element={<WatchLater/>}/>
-      <PrivateRoute path="/likedvideos" element={<LikedVideo/>}/>
-      <Route path="/user" element={<User/>} />
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/signup" element={<Signup/>} />
-    </Routes>  
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/videos" element={<VideoList />} />
+        <Route path="/videos/:videoId" element={<VideoPlayer />} />
+        <PrivateRoute path="/watchlater" element={<WatchLater />} />
+        <PrivateRoute path="/likedvideos" element={<LikedVideo />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+      <ToastContainer delay={3000} position={"bottom-center"} />
     </div>
   );
 }
