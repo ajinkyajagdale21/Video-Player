@@ -25,7 +25,7 @@ export const Login = () => {
         const {
           data: { name, token, userId },
           status,
-        } = await axios.post(`https://swiftflix.herokuapp.com/auth/login`, {
+        } = await axios.post(`https://api-swiftflix.vercel.app/auth/login`, {
           email,
           password,
         });

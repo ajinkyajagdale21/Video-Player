@@ -35,7 +35,7 @@ export function VideoPlayer() {
     try {
       const {
         data: { video },
-      } = await axios.get(`https://swiftflix.herokuapp.com/videos/${id}`);
+      } = await axios.get(`https://api-swiftflix.vercel.app/videos/${id}`);
       setViewVideo(video);
     } catch (error) {
       console.log(error);
@@ -50,7 +50,7 @@ export function VideoPlayer() {
       try {
         const {
           data: { notes, success },
-        } = await axios.get(`https://swiftflix.herokuapp.com/notes/${userId}`);
+        } = await axios.get(`https://api-swiftflix.vercel.app/notes/${userId}`);
         if (success) {
           dispatch({ type: "LOAD_NOTES", payload: notes.notes });
         }
@@ -65,7 +65,7 @@ export function VideoPlayer() {
     try {
       const {
         data: { note, success },
-      } = await axios.post(`https://swiftflix.herokuapp.com/notes/${userId}`, {
+      } = await axios.post(`https://api-swiftflix.vercel.app/notes/${userId}`, {
         playId: videoId,
         text: input,
       });
@@ -83,7 +83,7 @@ export function VideoPlayer() {
       const {
         data: { success, note },
       } = await axios.delete(
-        `https://swiftflix.herokuapp.com/notes/${userId}/${id}`
+        `https://api-swiftflix.vercel.app/notes/${userId}/${id}`
       );
       if (success) {
         dispatch({ type: "DELETE_NOTE", payload: note._id });
@@ -98,7 +98,7 @@ export function VideoPlayer() {
         const {
           data: { success, video },
         } = await axios.delete(
-          `https://swiftflix.herokuapp.com/unlikedvideos/${userId}/${videoId}`
+          `https://api-swiftflix.vercel.app/unlikedvideos/${userId}/${videoId}`
         );
         if (success) {
           dispatch({ type: "REMOVE_FROM_DISLIKED_VIDEO", payload: video._id });
@@ -107,7 +107,7 @@ export function VideoPlayer() {
       const {
         data: { video, success },
       } = await axios.post(
-        `https://swiftflix.herokuapp.com/likedvideos/${userId}`,
+        `https://api-swiftflix.vercel.app/likedvideos/${userId}`,
         { playId: videoId }
       );
       if (success) {
@@ -124,7 +124,7 @@ export function VideoPlayer() {
         const {
           data: { success, video },
         } = await axios.delete(
-          `https://swiftflix.herokuapp.com/likedvideos/${userId}/${videoId}`
+          `https://api-swiftflix.vercel.app/likedvideos/${userId}/${videoId}`
         );
         if (success) {
           dispatch({ type: "VIDEO_DISLIKED", payload: video._id });
@@ -133,7 +133,7 @@ export function VideoPlayer() {
       const {
         data: { video, success },
       } = await axios.post(
-        `https://swiftflix.herokuapp.com/unlikedvideos/${userId}`,
+        `https://api-swiftflix.vercel.app/unlikedvideos/${userId}`,
         { playId: videoId }
       );
       if (success) {
@@ -149,7 +149,7 @@ export function VideoPlayer() {
       const {
         data: { video },
       } = await axios.post(
-        `https://swiftflix.herokuapp.com/watchlater/${userId}`,
+        `https://api-swiftflix.vercel.app/watchlater/${userId}`,
         { playId: id }
       );
       dispatch({ type: "WATCH_LATER", payload: video });
@@ -163,7 +163,7 @@ export function VideoPlayer() {
       const {
         data: { video },
       } = await axios.delete(
-        `https://swiftflix.herokuapp.com/watchlater/${userId}/${id}`
+        `https://api-swiftflix.vercel.app/watchlater/${userId}/${id}`
       );
       dispatch({ type: "REMOVE_WATCH_LATER", payload: video._id });
     } catch (error) {
@@ -174,7 +174,7 @@ export function VideoPlayer() {
     const {
       data: { success, video },
     } = await axios.delete(
-      `https://swiftflix.herokuapp.com/likedvideos/${userId}/${videoId}`
+      `https://api-swiftflix.vercel.app/likedvideos/${userId}/${videoId}`
     );
     if (success) {
       dispatch({ type: "VIDEO_DISLIKED", payload: video._id });
@@ -184,7 +184,7 @@ export function VideoPlayer() {
     const {
       data: { success, video },
     } = await axios.delete(
-      `https://swiftflix.herokuapp.com/unlikedvideos/${userId}/${videoId}`
+      `https://api-swiftflix.vercel.app/unlikedvideos/${userId}/${videoId}`
     );
     if (success) {
       dispatch({ type: "REMOVE_FROM_DISLIKED_VIDEO", payload: video._id });

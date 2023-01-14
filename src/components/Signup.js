@@ -32,7 +32,7 @@ export const Signup = () => {
       try {
         const {
           data: { success },
-        } = await axios.post(`https://swiftflix.herokuapp.com/auth/signup`, {
+        } = await axios.post(`https://api-swiftflix.vercel.app/auth/signup`, {
           firstName: userInput?.firstName,
           lastName: userInput?.lastName,
           email: userInput?.email,
